@@ -59,7 +59,7 @@ public class UserService {
 
     private void checkDuplicateEmail(String email) {
         userRepository.findByEmail(email)
-                .ifPresent(user -> {
+                .ifPresent(_ -> {
                     throw new RuntimeException("UserEmailConflictException으로 변경 예정");
                 });
     }
