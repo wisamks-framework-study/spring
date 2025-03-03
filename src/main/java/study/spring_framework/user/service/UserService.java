@@ -10,6 +10,7 @@ import study.spring_framework.user.dto.request.UpdateUserRequest;
 import study.spring_framework.user.dto.response.CreateUserResponse;
 import study.spring_framework.user.dto.response.UserListResponse;
 import study.spring_framework.user.dto.response.UserResponse;
+import study.spring_framework.user.exception.UserNotFoundException;
 import study.spring_framework.user.mapper.UserEntityMapper;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class UserService {
 
     private User getUser(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("UserNotFoundException으로 변경 예정"));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     private List<User> getUsers() {
