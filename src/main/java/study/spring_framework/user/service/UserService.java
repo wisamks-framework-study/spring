@@ -48,7 +48,7 @@ public class UserService {
             user.updateEmail(dto.getEmail());
         }
         if (dto.getPassword() != null) {
-            user.updatePassword(dto.getPassword());
+            user.updatePassword(passwordEncoder.encode(dto.getPassword()));
         }
         userRepository.save(user);
     }
