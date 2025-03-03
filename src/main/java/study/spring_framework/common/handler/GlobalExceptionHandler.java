@@ -8,14 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import study.spring_framework.common.dto.ErrorResponse;
 import study.spring_framework.common.exception.ClientException;
+import study.spring_framework.common.exception.ServerException;
 import study.spring_framework.common.mapper.ExceptionResponseMapper;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,11 +37,17 @@ public class GlobalExceptionHandler {
         BindingResult bindingResult = ex.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         Map<String, String> errors = new HashMap<>();
-        for (FieldError error: fieldErrors) {
+        for (FieldError error : fieldErrors) {
             errors.put(error.getField(), error.getDefaultMessage());
         }
 
         logger.warn("유효성 검증 에러 발생: {}", errors);
         return exceptionResponseMapper.toResponseEntity(errors, request.getRequestURI());
+    }
+
+    @ExceptionHandler({ServerException.class, Exception.class})
+    public ResponseEntity<ErrorResponse> handleOtherException(Exception ex, HttpServletRequest request) {
+        logger.error("서버 에러 발생: {}", ex.getMessage());
+        return exceptionResponseMapper.toResponseEntity(request.getRequestURI());
     }
 }
