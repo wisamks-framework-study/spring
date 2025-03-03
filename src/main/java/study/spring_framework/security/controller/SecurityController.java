@@ -2,10 +2,7 @@ package study.spring_framework.security.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import study.spring_framework.security.dto.request.RegisterRequest;
 import study.spring_framework.security.dto.response.RegisterResponse;
 import study.spring_framework.security.service.SecurityService;
@@ -22,5 +19,12 @@ public class SecurityController {
             @Valid @RequestBody RegisterRequest dto
     ) {
         return securityService.registerUser(dto);
+    }
+
+    @DeleteMapping("/leave/{id}")
+    public void leaveUser(
+            @PathVariable("id") Long id
+    ) {
+        securityService.leaveUser(id);
     }
 }
