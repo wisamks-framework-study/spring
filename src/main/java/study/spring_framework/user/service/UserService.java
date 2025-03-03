@@ -39,7 +39,13 @@ public class UserService {
 
     public void updateUserInfo(UpdateUserRequest dto, Long id) {
         User user = getUser(id);
-
+        if (dto.getEmail() != null) {
+            user.updateEmail(dto.getEmail());
+        }
+        if (dto.getPassword() != null) {
+            user.updatePassword(dto.getPassword());
+        }
+        userRepository.save(user);
     }
 
     private User getUser(Long id) {
