@@ -23,6 +23,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ClientException.class)
     public ResponseEntity<ErrorResponse> handleClientException(ClientException ex, HttpServletRequest request) {
+        logger.warn("클라이언트 에러 발생: {}", ex.getMessage());
         return exceptionResponseMapper.toResponseEntity(ex, request.getRequestURI());
     }
 }
