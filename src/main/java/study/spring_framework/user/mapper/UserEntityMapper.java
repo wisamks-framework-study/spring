@@ -1,11 +1,13 @@
 package study.spring_framework.user.mapper;
 
+import org.springframework.stereotype.Component;
 import study.spring_framework.user.domain.User;
 import study.spring_framework.user.dto.response.UserListResponse;
 import study.spring_framework.user.dto.response.UserResponse;
 
 import java.util.List;
 
+@Component
 public class UserEntityMapper {
 
     public UserResponse toUserResponse(User user) {
