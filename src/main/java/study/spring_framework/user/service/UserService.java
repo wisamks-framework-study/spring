@@ -1,6 +1,7 @@
 package study.spring_framework.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring_framework.user.domain.User;
@@ -23,6 +24,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserEntityMapper userEntityMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponse getUserInfo(Long id) {
         return userEntityMapper.toUserResponse(getUser(id));
