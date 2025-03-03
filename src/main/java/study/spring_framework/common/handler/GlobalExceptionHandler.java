@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({ServerException.class, Exception.class})
     public ResponseEntity<ErrorResponse> handleOtherException(Exception ex, HttpServletRequest request) {
-        logger.error("서버 에러 발생: {}", ex.getMessage());
+        logger.error("서버 에러 발생: {}", ex.getMessage(), ex);
         return exceptionResponseMapper.toResponseEntity(request.getRequestURI());
     }
 }
