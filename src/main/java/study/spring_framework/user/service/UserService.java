@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.spring_framework.user.domain.User;
 import study.spring_framework.user.domain.UserRepository;
 import study.spring_framework.user.dto.request.CreateUserRequest;
+import study.spring_framework.user.dto.response.CreateUserResponse;
 import study.spring_framework.user.dto.response.UserListResponse;
 import study.spring_framework.user.dto.response.UserResponse;
 import study.spring_framework.user.mapper.UserEntityMapper;
@@ -28,11 +29,11 @@ public class UserService {
         return userEntityMapper.toUserListResponse(getUsers());
     }
 
-    public UserResponse createUser(CreateUserRequest dto) {
+    public CreateUserResponse createUser(CreateUserRequest dto) {
         checkDuplicateEmail(dto.getEmail());
         User user = userEntityMapper.toUser(dto);
         userRepository.save(user);
-        return userEntityMapper.toUserResponse(user);
+        return userEntityMapper.toCreateUserResponse(user);
     }
 
     private User getUser(Long id) {

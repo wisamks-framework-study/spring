@@ -3,6 +3,7 @@ package study.spring_framework.user.mapper;
 import org.springframework.stereotype.Component;
 import study.spring_framework.user.domain.User;
 import study.spring_framework.user.dto.request.CreateUserRequest;
+import study.spring_framework.user.dto.response.CreateUserResponse;
 import study.spring_framework.user.dto.response.UserListResponse;
 import study.spring_framework.user.dto.response.UserResponse;
 
@@ -30,6 +31,12 @@ public class UserEntityMapper {
     public UserListResponse toUserListResponse(List<User> users) {
         return UserListResponse.builder()
                 .users(users.stream().map(this::toUserResponse).toList())
+                .build();
+    }
+
+    public CreateUserResponse toCreateUserResponse(User user) {
+        return CreateUserResponse.builder()
+                .id(user.getId())
                 .build();
     }
 }
