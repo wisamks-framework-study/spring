@@ -1,11 +1,13 @@
 package study.spring_framework.common.mapper;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import study.spring_framework.common.dto.ErrorResponse;
 import study.spring_framework.common.exception.ClientException;
 
 import java.time.LocalDateTime;
 
+@Component
 public class ExceptionResponseMapper {
 
     public ResponseEntity<ErrorResponse> toResponseEntity(ClientException ex, String path) {
