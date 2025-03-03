@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.spring_framework.user.domain.User;
 import study.spring_framework.user.domain.UserRepository;
+import study.spring_framework.user.dto.response.UserListResponse;
+import study.spring_framework.user.dto.response.UserResponse;
+import study.spring_framework.user.mapper.UserEntityMapper;
 
 import java.util.List;
 
@@ -14,9 +17,14 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserEntityMapper userEntityMapper;
 
-    public List<User> getUserList() {
-        return getUsers();
+    public UserResponse getUserInfo(Long id) {
+        return userEntityMapper.toUserResponse(getUser(id));
+    }
+
+    public UserListResponse getUserList() {
+        return userEntityMapper.toUserListResponse(getUsers());
     }
 
     private User getUser(Long id) {
