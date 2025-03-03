@@ -29,6 +29,7 @@ public class UserService {
     }
 
     public UserResponse createUser(CreateUserRequest dto) {
+        checkDuplicateEmail(dto.getEmail());
         User user = userEntityMapper.toUser(dto);
         userRepository.save(user);
         return userEntityMapper.toUserResponse(user);
@@ -36,10 +37,17 @@ public class UserService {
 
     private User getUser(Long id) {
         return userRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("UserNotFoundException으로 변경 예정"));
     }
 
     private List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    private void checkDuplicateEmail(String email) {
+        userRepository.findByEmail(email)
+                .ifPresent(user -> {
+                    throw new RuntimeException("UserEmailConflictException으로 변경 예정");
+                });
     }
 }
