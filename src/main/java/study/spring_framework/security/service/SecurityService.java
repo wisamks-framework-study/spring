@@ -21,4 +21,8 @@ public class SecurityService {
         CreateUserResponse result = userService.createUser(securityDtoMapper.toCreateUserRequest(dto));
         return securityDtoMapper.toRegisterResponse(result);
     }
+
+    public void leaveUser(Long id) {
+        userService.deleteUser(id);
+    }
 }
