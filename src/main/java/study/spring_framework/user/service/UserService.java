@@ -10,6 +10,7 @@ import study.spring_framework.user.dto.request.UpdateUserRequest;
 import study.spring_framework.user.dto.response.CreateUserResponse;
 import study.spring_framework.user.dto.response.UserListResponse;
 import study.spring_framework.user.dto.response.UserResponse;
+import study.spring_framework.user.exception.UserEmailConflictException;
 import study.spring_framework.user.exception.UserNotFoundException;
 import study.spring_framework.user.mapper.UserEntityMapper;
 
@@ -41,6 +42,7 @@ public class UserService {
     public void updateUserInfo(UpdateUserRequest dto, Long id) {
         User user = getUser(id);
         if (dto.getEmail() != null) {
+            checkDuplicateEmail(dto.getEmail());
             user.updateEmail(dto.getEmail());
         }
         if (dto.getPassword() != null) {
@@ -61,7 +63,7 @@ public class UserService {
     private void checkDuplicateEmail(String email) {
         userRepository.findByEmail(email)
                 .ifPresent(_ -> {
-                    throw new RuntimeException("UserEmailConflictException으로 변경 예정");
+                    throw new UserEmailConflictException(email);
                 });
     }
 }
