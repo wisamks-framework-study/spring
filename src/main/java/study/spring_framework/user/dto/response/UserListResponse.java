@@ -3,7 +3,6 @@ package study.spring_framework.user.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import study.spring_framework.user.domain.User;
 
 import java.util.List;
 
@@ -11,10 +10,10 @@ import java.util.List;
 @Getter
 public class UserListResponse {
 
-    private List<User> users;
+    private List<UserResponse> users;
 
     @Builder
-    public UserListResponse(List<User> users) {
+    public UserListResponse(List<UserResponse> users) {
         this.users = users;
     }
 }
