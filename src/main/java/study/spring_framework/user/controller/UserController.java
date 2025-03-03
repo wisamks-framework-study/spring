@@ -1,10 +1,9 @@
 package study.spring_framework.user.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import study.spring_framework.user.dto.request.UpdateUserRequest;
 import study.spring_framework.user.dto.response.UserListResponse;
 import study.spring_framework.user.dto.response.UserResponse;
 import study.spring_framework.user.service.UserService;
@@ -27,5 +26,13 @@ public class UserController {
     @GetMapping({"", "/"})
     public UserListResponse getUserList() {
         return userService.getUserList();
+    }
+
+    @PutMapping("/{id}")
+    public void updateUserInfo(
+            @PathVariable("id") Long id,
+            @Valid @RequestBody UpdateUserRequest dto
+    ) {
+        userService.updateUserInfo(dto, id);
     }
 }

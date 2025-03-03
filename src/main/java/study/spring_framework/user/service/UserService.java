@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.spring_framework.user.domain.User;
 import study.spring_framework.user.domain.UserRepository;
 import study.spring_framework.user.dto.request.CreateUserRequest;
+import study.spring_framework.user.dto.request.UpdateUserRequest;
 import study.spring_framework.user.dto.response.CreateUserResponse;
 import study.spring_framework.user.dto.response.UserListResponse;
 import study.spring_framework.user.dto.response.UserResponse;
@@ -34,6 +35,11 @@ public class UserService {
         User user = userEntityMapper.toUser(dto);
         userRepository.save(user);
         return userEntityMapper.toCreateUserResponse(user);
+    }
+
+    public void updateUserInfo(UpdateUserRequest dto, Long id) {
+        User user = getUser(id);
+
     }
 
     private User getUser(Long id) {
