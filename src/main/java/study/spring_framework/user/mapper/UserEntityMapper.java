@@ -1,7 +1,6 @@
 package study.spring_framework.user.mapper;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import study.spring_framework.user.domain.User;
 import study.spring_framework.user.dto.request.CreateUserRequest;
@@ -15,12 +14,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserEntityMapper {
 
-    private final PasswordEncoder passwordEncoder;
-
-    public User toUser(CreateUserRequest dto) {
+    public User toUser(CreateUserRequest dto, String encodedPassword) {
         return User.builder()
                 .email(dto.getEmail())
-                .password(passwordEncoder.encode(dto.getPassword()))
+                .password(encodedPassword)
                 .build();
     }
 

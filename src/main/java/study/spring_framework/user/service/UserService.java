@@ -36,7 +36,7 @@ public class UserService {
 
     public CreateUserResponse createUser(CreateUserRequest dto) {
         checkDuplicateEmail(dto.getEmail());
-        User user = userEntityMapper.toUser(dto);
+        User user = userEntityMapper.toUser(dto, passwordEncoder.encode(dto.getPassword()));
         userRepository.save(user);
         return userEntityMapper.toCreateUserResponse(user);
     }
